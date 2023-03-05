@@ -12,4 +12,5 @@ Scenario: Add a product to the cart and check it is as expected
     And I go to the cart
     Then I should see one item in the cart
     And The product should be the same I added
+    And The product price is the same as the purchase total
     And I close the browser

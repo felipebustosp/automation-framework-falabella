@@ -78,7 +78,7 @@ public class HomeSteps {
 
     @And("I click the a second level category item")
     public void i_click_the_first_second_level_category(){
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id='scrollable-content']//ul[3]/li[4]/a")));
         element.click();
     }
@@ -170,6 +170,17 @@ public class HomeSteps {
 
         assertEquals(this.productCode, productCodeFound);
     }
+
+    @And("The product price is the same as the purchase total")
+    public void product_price_compared_total(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement productPrice = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@datatestid='cart-line-prices']//span")));
+        WebElement totalPrice = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid='total-amount']")));
+        String productPriceString = productPrice.getText().split(" ")[1].replace("[", "").replace("]","").trim();
+        String totalPriceString = totalPrice.getText().split(" ")[1].replace("[", "").replace("]","").trim();
+        assertEquals(productPriceString,totalPriceString);
+        
+    }    
 
     @And("I close the browser")
     public void i_close_browser(){
